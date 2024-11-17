@@ -121,10 +121,72 @@ const updatePublicKey = async (req, res) => {
     }
 };
 
+const updateUser = async (req, res) => {
+    try {
+        const { userId } = req.user; // Lấy userId từ JWT payload
+        const updateData = req.body; // Lấy dữ liệu cần cập nhật từ req.body
+
+        // Loại bỏ password nếu người dùng cố gắng cập nhật password (phải có một hàm riêng cho cập nhật password)
+        if (updateData.password) {
+            return res.status(400).json({ message: 'Cannot update password here' });
+        }
+
+        // Tìm user và cập nhật với dữ liệu từ req.body
+        const user = await User.findByIdAndUpdate(
+            userId,
+            updateData,
+            { new: true } // Trả về bản ghi đã cập nhật
+        ).select('-password'); // Không trả về password
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'User updated successfully', user });
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};
+
+const checkIn = async (req, res) => {
+    try {
+        const { userId } = req.user; // Lấy userId từ JWT payload
+        
+        // Tìm user từ cơ sở dữ liệu
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Kiểm tra nếu người dùng đã check-in hôm nay
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Đặt thời gian của hôm nay là 0 giờ để dễ so sánh
+        const lastCheckIn = user.lastCheckInDate;
+
+        if (lastCheckIn && lastCheckIn >= today) {
+            return res.status(400).json({ message: 'You have already checked in today' });
+        }
+
+        // Cập nhật ngày check-in cuối cùng và thưởng điểm
+        user.lastCheckInDate = new Date();
+        user.point += 10; // Ví dụ: thưởng 10 điểm cho mỗi lần check-in thành công
+
+        // Lưu thông tin user đã cập nhật
+        await user.save();
+
+        res.status(200).json({ message: 'Check-in successful', points: user.point });
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};
+
+
 module.exports = {
     register,
     login,
     getUserInfo,
     authenticate,
-    updatePublicKey
+    updatePublicKey,
+    updateUser,
+    checkIn
 };
