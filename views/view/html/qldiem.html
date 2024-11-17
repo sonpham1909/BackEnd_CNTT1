@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Solasi - Điểm Thưởng</title>
+    <link rel="stylesheet" href="../css/qldiem.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Quản Lý Solasi</h2>
+            <ul>
+                <li><a href="home.html">Trang Chủ</a></li>
+                <li><a href="home.html">Quản Lý Người Dùng</a></li>
+                <li><a href="qldiem.html">Quản Lý Điểm Thưởng</a></li>
+                
+                <li><a href="#" id="logout" onclick="confirmLogout(event)">Đăng Xuất</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <h1>Quản lý Điểm Thưởng và SOL</h1>
+
+            <div class="form-section">
+                <form id="points-form">
+                    <div class="form-group">
+                        <label for="user-id">ID Người Dùng:</label>
+                        <input type="text" id="user-id" name="user-id" placeholder="Nhập ID người dùng">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="listening-points">Điểm Nghe Nhạc:</label>
+                        <input type="number" id="listening-points" name="listening-points" placeholder="Nhập điểm từ lượt nghe">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="daily-points">Điểm Điểm Danh Hàng Ngày:</label>
+                        <input type="number" id="daily-points" name="daily-points" placeholder="Nhập điểm từ điểm danh">
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" onclick="addPoints()">Cộng Điểm</button>
+                        <button type="button" onclick="convertToSol()">Đổi Điểm Thành SOL</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="table-section">
+                <h3>Danh Sách Người Dùng</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID Người Dùng</th>
+                            <th>Điểm Nghe Nhạc</th>
+                            <th>Điểm Điểm Danh</th>
+                            <th>Tổng Điểm</th>
+                            <th>Đổi SOL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-points-list">
+                      
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
