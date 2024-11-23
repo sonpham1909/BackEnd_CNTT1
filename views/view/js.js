@@ -14,3 +14,27 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
         alert('Email hoặc mật khẩu không đúng!');
     }
 });
+
+
+
+function confirmLogout(event) {
+    event.preventDefault(); 
+    
+    // Xác nhận đăng xuất
+    const confirmation = confirm("Bạn có chắc chắn muốn đăng xuất?");
+    if (confirmation) {
+        logout();
+    }
+}
+
+function logout() {
+   
+    localStorage.removeItem("token");  
+    sessionStorage.removeItem("token"); 
+    
+    localStorage.clear();
+    sessionStorage.clear();
+
+    
+    window.location.href = "../html/dangnhap.html"; 
+}
