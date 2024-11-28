@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý SoLaSi</title>
+    <link rel="stylesheet" href="../css/css.css">
+    
+</head>
+
+<body>
+    <div class="container">
+       
+        <div class="sidebar">
+            <h2>Quản Lý Solasi</h2>
+            <ul>
+                <li><a href="home.html">Quản lý tài khoản</a></li>
+                
+                <li><a href="qldiem.html">Quản lý điểm</a></li>
+                
+                <li> <a href="#" id="logout" onclick="confirmLogout(event)">Đăng xuất</a></li>
+               
+
+            </ul>
+        </div>
+
+     
+        <div class="main-content">
+            <h1>Quản Lý Ứng Dụng SoLaSi</h1>
+
+           
+            <div class="account-section">
+                <h2>Thông tin tài khoản</h2>
+                <form id="account-form">
+                    <div class="form-group">
+                        <label for="username">Tên người dùng:</label>
+                        <input type="text" id="username" name="username" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="points">Số điểm hiện tại:</label>
+                        <input type="number" id="points" name="points" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="level">Cấp độ:</label>
+                        <input type="text" id="level" name="level" disabled>
+                    </div>
+                    <button type="button" onclick="updateAccount()">Cập nhật tài khoản</button>
+                </form>
+            </div>
+
+           
+            <div class="reward-history">
+                <h2>Lịch sử đổi thưởng</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Ngày</th>
+                            <th>Bài hát</th>
+                            <th>Điểm đổi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rewardHistory">
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/management.js">
+
+    </script><script src="../js.js"></script>
+    
+</body>
+
+</html>
