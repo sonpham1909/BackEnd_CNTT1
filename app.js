@@ -12,6 +12,7 @@ require('dotenv').config();
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
+var tranRouter = require('./routes/transaction');
 const database = require('./config/db');
 
 var app = express();
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/v1/auth',authRouter);
+app.use('/v1/transaction', tranRouter);
 
 database().then(() => {
   console.log('Connected to the database');

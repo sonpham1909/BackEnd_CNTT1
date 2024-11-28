@@ -180,6 +180,20 @@ const checkIn = async (req, res) => {
     }
 };
 
+const getUser = async (req, res) => {
+    try {
+      
+
+        // Find user by ID
+        const user = await User.find().select('-password'); // Exclude password
+      
+
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};
+
 
 module.exports = {
     register,
@@ -188,5 +202,6 @@ module.exports = {
     authenticate,
     updatePublicKey,
     updateUser,
-    checkIn
+    checkIn,
+    getUser
 };
