@@ -11,14 +11,16 @@ const transactionController = {
     redeem: async (req, res) => {
         const connection = new Connection(process.env.SOLANA_NETWORK, 'confirmed');
         const { points, userPublicKey, userId } = req.body;
+        console.log(points, req.user.userId, );
+        
 
-        if (!points || !userPublicKey || !req.user.userId) {
+        if (!points || !req.user.userId) {
             return res.status(400).json({ error: 'Missing points, userPublicKey, or userId' });
         }
     
         try {
             // Tính số SOL từ điểm
-            const SOL_AMOUNT = points / 10000; // Ví dụ: 10000 điểm đổi lấy 1 SOL
+            const SOL_AMOUNT = points / 100000; // Ví dụ: 10000 điểm đổi lấy 1 SOL
             const lamports = SOL_AMOUNT * LAMPORTS_PER_SOL;
 
             if(points < 100){
@@ -32,6 +34,10 @@ const transactionController = {
 
             if(user.point < points){
                 return res.status(400).json({ error: 'Your points not enought' });
+            }
+            if(user.publicKey === ''){
+                return res.status(400).json({ error: 'You are not connect wallet' });
+
             }
 
 
